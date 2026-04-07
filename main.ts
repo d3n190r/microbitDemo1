@@ -1,3 +1,24 @@
+function showLives () {
+    if (lives == 2) {
+        basic.showIcon(IconNames.Heart)
+    } else if (lives == 1) {
+        basic.showLeds(`
+            . # . . .
+            # # # . .
+            # # # . .
+            . # # . .
+            . . # . .
+            `)
+    } else {
+        basic.showIcon(IconNames.Sad)
+        lives = 2
+        enemy_x = randint(0, 4)
+        enemy_y = -1
+    }
+    control.waitMicros(10)
+    basic.clearScreen()
+    led.plot(x_position, 4)
+}
 input.onButtonPressed(Button.A, function () {
     if (x_position > 0) {
         led.unplot(x_position, 4)
@@ -12,10 +33,14 @@ input.onButtonPressed(Button.B, function () {
         led.plot(x_position, 4)
     }
 })
-let x_position = 0
-x_position = 0
-let enemy_x = randint(0, 4)
 let enemy_y = 0
+let enemy_x = 0
+let x_position = 0
+let lives = 0
+lives = 2
+x_position = 0
+enemy_x = randint(0, 4)
+enemy_y = -1
 led.plot(x_position, 4)
 loops.everyInterval(500, function () {
     if (enemy_y < 4) {
@@ -25,10 +50,11 @@ loops.everyInterval(500, function () {
     } else if (enemy_x == x_position && enemy_y == 4) {
         enemy_x = randint(0, 4)
         enemy_y = -1
+        showLives()
     } else {
-        basic.showIcon(IconNames.Sad)
+        enemy_x = randint(0, 4)
+        enemy_y = -1
+        lives += -1
+        showLives()
     }
-})
-basic.forever(function () {
-	
 })
