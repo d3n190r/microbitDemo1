@@ -10,10 +10,9 @@ function showLives () {
             . . # . .
             `)
     } else {
-        basic.showIcon(IconNames.Sad)
-        lives = 2
-        enemy_x = randint(0, 4)
-        enemy_y = -1
+        while (true) {
+            basic.showIcon(IconNames.Sad)
+        }
     }
     control.waitMicros(10)
     basic.clearScreen()
@@ -33,14 +32,12 @@ input.onButtonPressed(Button.B, function () {
         led.plot(x_position, 4)
     }
 })
-let enemy_y = 0
-let enemy_x = 0
 let x_position = 0
 let lives = 0
 lives = 2
 x_position = 0
-enemy_x = randint(0, 4)
-enemy_y = -1
+let enemy_x = randint(0, 4)
+let enemy_y = -1
 led.plot(x_position, 4)
 loops.everyInterval(500, function () {
     if (enemy_y < 4) {
